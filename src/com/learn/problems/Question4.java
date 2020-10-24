@@ -3,27 +3,27 @@ package com.learn.problems;
 
 class MyTask implements Runnable {
     static final int THRESHOLD_LIMIT = 1000;
-    int[] A;
-    MyTask(int[] A) {
-        this.A = A;
+    int[] randomArray;
+    MyTask(int[] randomArray) {
+        this.randomArray = randomArray;
     }
     @Override
     public void run() {
-        if(A.length <= THRESHOLD_LIMIT) {
+        if(randomArray.length <= THRESHOLD_LIMIT) {
             insertionSort();
             return;
         }
         else {
-            int n = A.length;
+            int n = randomArray.length;
             int mid = n/2;
             int[] X = new int[mid];
             int[] Y = new int[n-mid];
 
             for(int i = 0;i < mid;i++) {
-                X[i] = A[i];
+                X[i] = randomArray[i];
             }
             for(int i = mid;i < n;i++) {
-                Y[i-mid] = A[i];
+                Y[i-mid] = randomArray[i];
             }
             //divide the task
             MyTask left = new MyTask(X);
@@ -41,36 +41,36 @@ class MyTask implements Runnable {
             } catch (InterruptedException e) {
             }
             //merge sorted arrays
-            merge(left.A,right.A);
+            merge(left.randomArray,right.randomArray);
         }
     }
     private void insertionSort() {
-        int n = this.A.length;
+        int n = randomArray.length;
         int index = 1;
         while(index < n) {
-            int element = this.A[index];
+            int element = randomArray[index];
             for(int i = 0;i < index;i++) {
-                if(element < this.A[i]) {
-                    int tmp = this.A[i];
-                    this.A[i] = element;
+                if(element < randomArray[i]) {
+                    int tmp = randomArray[i];
+                    randomArray[i] = element;
 
                     element = tmp;
                 }
             }
-            this.A[index] = element;
+            randomArray[index] = element;
             index++;
         }
     }
     public void merge(int[] a,int[] b) {
         int i = 0, j = 0, k = 0;
         while(i < a.length && j < b.length)
-            this.A[k++] = a[i] < b[j] ? a[i++] : b[j++];
+            randomArray[k++] = a[i] < b[j] ? a[i++] : b[j++];
 
         while(i < a.length)
-            this.A[k++] = a[i++];
+            randomArray[k++] = a[i++];
 
         while(j < b.length)
-            this.A[k++] = b[j++];
+            randomArray[k++] = b[j++];
     }
     public static boolean isSorted(int[] array) {
         for(int i = 1; i < array.length; i++) {
@@ -80,13 +80,13 @@ class MyTask implements Runnable {
     }
 }
 public class Question4 {
-    int[] A;
-    public Question4(int[] A) {
-        this.A = A;
+    int[] randomArray;
+    public Question4(int[] randomArray) {
+        this.randomArray = randomArray;
     }
     public void getTimeTaken() throws InterruptedException {
         long startTime = System.currentTimeMillis();
-        MyTask myTask = new MyTask(A);
+        MyTask myTask = new MyTask(randomArray);
         Thread thread = new Thread(myTask);
         thread.start();
         thread.join();

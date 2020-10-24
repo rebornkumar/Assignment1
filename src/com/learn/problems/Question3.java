@@ -3,20 +3,21 @@ package com.learn.problems;
 public class Question3 {
     int[] randomArray;
     public Question3(int[] array) {
-        randomArray = array;
+        this.randomArray = array;
     }
-    private void insertionSort(int[] A) {
-        int n = A.length;
+    private void insertionSort() {
+        int n = randomArray.length;
         int index = 1;
         while(index < n) {
-            int element = A[index];
-            for(int i = 0;i <= index;i++) {
-                if(A[i] > element) {
-                    int tmp = A[i];
-                    A[i] = element;
+            int element = randomArray[index];
+            for(int i = 0;i < index;i++) {
+                if(element < randomArray[i]) {
+                    int tmp = randomArray[i];
+                    randomArray[i] = element;
                     element = tmp;
                 }
             }
+            randomArray[index] = element;
             index++;
         }
     }
@@ -30,19 +31,21 @@ public class Question3 {
         for(int i = 0;i < mid;i++) {
             A[i] = randomArray[i];
         }
-        for(int i = mid;i + mid < n;i++) {
+        for(int i = mid;i < n;i++) {
             B[i-mid] = randomArray[i];
         }
+        Question3 left = new Question3(A);
+        Question3 right = new Question3(B);
         Thread firstThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                insertionSort(A);
+                left.insertionSort();
             }
         });
         Thread secondThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                insertionSort(B);
+                right.insertionSort();
             }
         });
         firstThread.start();
@@ -52,19 +55,19 @@ public class Question3 {
         secondThread.join();
 
         int i = 0,j = 0, k = 0;
-        while(i < A.length && j < B.length) {
-            if(A[i] < B[j]) {
-                randomArray[k++] = A[i++];
+        while(i < left.randomArray.length && j < right.randomArray.length) {
+            if(left.randomArray[i] < right.randomArray[j]) {
+                randomArray[k++] = left.randomArray[i++];
             }
             else {
-                randomArray[k++] = B[j++];
+                randomArray[k++] = right.randomArray[j++];
             }
         }
-        while(i < A.length) {
-            randomArray[k++] = A[i++];
+        while(i < left.randomArray.length) {
+            randomArray[k++] = left.randomArray[i++];
         }
-        while(j < B.length) {
-            randomArray[k++] = B[j++];
+        while(j < right.randomArray.length) {
+            randomArray[k++] = right.randomArray[j++];
         }
     }
     public void getTimeTaken() throws InterruptedException {

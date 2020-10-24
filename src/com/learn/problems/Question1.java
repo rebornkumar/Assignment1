@@ -10,13 +10,14 @@ public class Question1 {
         int index = 1;
         while(index < n) {
             int element = randomArray[index];
-            for(int i = 0;i <= index;i++) {
-                if(randomArray[i] > element) {
+            for(int i = 0;i < index;i++) {
+                if(element < randomArray[i]) {
                     int tmp = randomArray[i];
                     randomArray[i] = element;
                     element = tmp;
                 }
             }
+            randomArray[index] = element;
             index++;
         }
     }
