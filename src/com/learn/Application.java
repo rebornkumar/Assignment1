@@ -1,11 +1,15 @@
 package com.learn;
 
+//import com.learn.problems.Question5;
+
 import com.learn.problems.Question1;
 import com.learn.problems.Question2;
 import com.learn.problems.Question3;
+import com.learn.problems.Question5;
 import com.learn.util.RandomArrayGenerator;
 
 import java.util.Scanner;
+import java.util.concurrent.ForkJoinPool;
 
 public class Application {
     public static void main(String[] args) throws InterruptedException {
@@ -20,5 +24,8 @@ public class Application {
         int[] C = randomArrayGenerator.getRandomArray();
         Question3 question3 = new Question3(C);
         question3.getTimeTaken();
+        Question5 question5 = new Question5(B);
+        question5.getTimeTaken();
+
     }
 }
