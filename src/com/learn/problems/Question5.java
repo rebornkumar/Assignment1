@@ -25,7 +25,7 @@ public class Question5 {
         System.out.println("Time taken in sorting array using insertion sort by partition with two threads: " + (endTime - startTime) + " milliseconds");
     }
     public static class MergeTask extends RecursiveTask<int[]> {
-        private static final int THRESHOLD = 4;
+        private static final int THRESHOLD = 100;
         private final int[] array;
 
         public MergeTask(int[] array) {

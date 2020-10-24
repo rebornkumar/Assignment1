@@ -12,7 +12,7 @@ public class RandomArrayGenerator {
     public int[] getRandomArray() {
         Random random = new Random();
         for(int i = 0;i < n;i++) {
-            randomArray[i] = random.nextInt();
+            randomArray[i] = random.nextInt(10000);
         }
         return randomArray;
     }
